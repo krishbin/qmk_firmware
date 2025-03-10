@@ -1,0 +1,38 @@
+name: Build QMK firmware
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+    strategy:
+      fail-fast: false
+
+    steps:
+
+    - name: Disable git safe directory checks
+      run : git config --global --add safe.directory '*'
+
+    - name: Checkout QMK
+      uses: actions/checkout@v3
+      with:
+        repository: krishbin/qmk_firmware
+        submodules: recursive
+        ref: k8_bt_port_squash
+
+    - name: Checkout userspace
+      uses: actions/checkout@v3
+      with:
+        path: users/${{ github.actor }}
+
+    - name: Build firmware
+      run: qmk compile -kb keychron/k8_bt/rgb/v2/ansi -km krishbin
+
+    - name: Archive firmware
+      uses: actions/upload-artifact@v3
+      continue-on-error: true
+      with:
+        path: |
+          *.hex
+          *.bin
+          *.uf2
