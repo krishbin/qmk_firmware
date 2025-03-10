@@ -32,7 +32,7 @@ jobs:
       run: python3 -m pip install -r /__w/qmk_firmware/qmk_firmware/requirements.txt
 
     - name: Build firmware
-      run: qmk compile -kb keychron/k8_bt/rgb/v2/ansi -km krishbin
+      run: qmk compile -kb keychron/k8_bt/rgb/ansi -km krishbin
 
     - name: Archive firmware
       uses: actions/upload-artifact@v4
