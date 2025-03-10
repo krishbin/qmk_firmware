@@ -29,9 +29,10 @@ jobs:
       run: qmk compile -kb keychron/k8_bt/rgb/v2/ansi -km krishbin
 
     - name: Archive firmware
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       continue-on-error: true
       with:
+        overwrite: true
         path: |
           *.hex
           *.bin
