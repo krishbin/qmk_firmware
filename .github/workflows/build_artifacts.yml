@@ -39,7 +39,9 @@ jobs:
       continue-on-error: true
       with:
         overwrite: true
+        name: k8_bt_firmware
         path: |
-          *.hex
-          *.bin
-          *.uf2
+          .build/*.hex
+          .build/*.bin
+          .build/*.uf2
+          .build/*.elf
